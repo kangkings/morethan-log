@@ -1,32 +1,51 @@
 const CONFIG = {
   // profile setting (required)
   profile: {
-    name: "morethanmin",
-    image: "/avatar.svg", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
-    role: "frontend developer",
-    bio: "I develop everything using node.",
-    email: "morethanmin.dev@gmail.com",
-    linkedin: "morethanmin",
-    github: "morethanmin",
-    instagram: "",
+    name: "kangking",
+    image: "/kangking.svg", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
+    role: "Software Engineer",
+    bio: "Deep understanding, respect, and effective communication",
+    email: "dlflq11@gmail.com",
+    linkedin: "https://www.linkedin.com/in/%ED%83%9C%EC%84%B1-%EA%B0%95-95b227336/",
+    github: "https://github.com/kangkings"
   },
   projects: [
     {
-      name: `morethan-log`,
-      href: "https://github.com/morethanmin/morethan-log",
+      name: `SSaG`,
+      href: "https://github.com/nbc-expert-6/SSaG",
+    },
+    {
+      name: `Dealivery`,
+      href: "https://github.com/beyond-sw-camp/be06-fin-SimKids-Dealivery",
+    },
+    {
+      name: `Shoong-Logistics`,
+      href: "https://github.com/nbc-expert-6/ShoongLogistics",
+    },
+    {
+      name: `CDC(Oracle to Mysql)`,
+      href: "https://github.com/DeepDamHwa/CDC_project",
+    },
+    {
+      name: `Vroom-Vroom`,
+      href: "https://github.com/nbc4-T-minjok/vroom-vroom",
+    },
+    {
+      name: `0909`,
+      href: "https://github.com/beyond-sw-camp/be06-2nd-4TREES-0909",
     },
   ],
   // blog setting (required)
   blog: {
-    title: "morethan-log",
-    description: "welcome to morethan-log!",
-    scheme: "dark", // 'light' | 'dark' | 'system'
+    title: "Dev-logs",
+    description: "welcome to dev-log!",
+    scheme: "system", // 'light' | 'dark' | 'system'
   },
 
   // CONFIG configration (required)
-  link: "https://morethan-log.vercel.app",
-  since: 2022, // If leave this empty, current year will be used.
-  lang: "en-US", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
+  link: "https://kangking.vercel.app/",
+  since: 2025, // If leave this empty, current year will be used.
+  lang: "ko-KR", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
   ogImageGenerateURL: "https://og-image-korean.vercel.app", // The link to generate OG image, don't end with a slash
 
   // notion configuration (required)
@@ -36,13 +55,13 @@ const CONFIG = {
 
   // plugin configuration (optional)
   googleAnalytics: {
-    enable: false,
+    enable: true,
     config: {
       measurementId: process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || "",
     },
   },
   googleSearchConsole: {
-    enable: false,
+    enable: true,
     config: {
       siteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
     },
