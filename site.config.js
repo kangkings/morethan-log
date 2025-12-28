@@ -6,8 +6,8 @@ const CONFIG = {
     role: "Software Engineer",
     bio: "Deep understanding, respect, and effective communication",
     email: "dlflq11@gmail.com",
-    linkedin: "https://www.linkedin.com/in/%ED%83%9C%EC%84%B1-%EA%B0%95-95b227336/",
-    github: "https://github.com/kangkings",
+    linkedin: "%ED%83%9C%EC%84%B1-%EA%B0%95-95b227336/",
+    github: "kangkings",
     instagram: ""
   },
   projects: [
@@ -74,7 +74,7 @@ const CONFIG = {
     },
   },
   utterances: {
-    enable: false,
+    enable: true,
     config: {
       repo: process.env.NEXT_PUBLIC_UTTERANCES_REPO || "",
       "issue-term": "og:title",
