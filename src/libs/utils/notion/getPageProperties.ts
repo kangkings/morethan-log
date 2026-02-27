@@ -26,7 +26,7 @@ async function getPageProperties(
         case "file": {
           try {
             const url: string = val[0][1][0][1]
-            const newurl = customMapImageUrl(url, BlockValue)
+            const newurl = customMapImageUrl(url, blockValue)
             properties[schema[key].name] = newurl
           } catch (error) {
             properties[schema[key].name] = undefined
