@@ -22,8 +22,8 @@ export const getPosts = async () => {
   const schema = collection?.schema
 
   //26.02.27 노션 api 응답구조 변경으로 depth추가
-  const isDoubleWrapped = !!collectionValue?.value;
-  const collection = isDoubleWrapped ? collectionValue.value : collectionValue;
+  const blockValue = block?.[id]?.value
+  const rawMetadata = blockValue?.value ?? blockValue
 
   // Check Type
   if (
