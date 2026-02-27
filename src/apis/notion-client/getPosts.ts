@@ -21,8 +21,9 @@ export const getPosts = async () => {
   const block = response.block
   const schema = collection?.schema
 
-  //26.02.27 노션 apu 응답구조 변경으로 depth추가
-  const rawMetadata = block[id].value.value
+  //26.02.27 노션 api 응답구조 변경으로 depth추가
+  const blockValue = block?.[id]?.value
+  const rawMetadata = blockValue?.value ?? blockValue
 
   // Check Type
   if (
