@@ -18,10 +18,12 @@ export const getPosts = async () => {
   const response = await api.getPage(id)
   id = idToUuid(id)
   const collection = Object.values(response.collection)[0]?.value
-  const block = response.block
+  // const block = response.block
   const schema = collection?.schema
 
   //26.02.27 노션 api 응답구조 변경으로 depth추가
+  const block = response.block as Record<string, any>
+
   const blockValue = block?.[id]?.value
   const rawMetadata = blockValue?.value ?? blockValue
 
