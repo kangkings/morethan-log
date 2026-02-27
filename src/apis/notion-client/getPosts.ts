@@ -17,16 +17,15 @@ export const getPosts = async () => {
 
   const response = await api.getPage(id)
   id = idToUuid(id)
-  const collection = Object.values(response.collection)[0]?.value
-  // const block = response.block
+  const collection = (Object.values(response.collection)[0] as any)?.value?.value || (Object.values(response.collection)[0] as any)?.value
+  const block = response.block
   const schema = collection?.schema
 
   //26.02.27 노션 api 응답구조 변경으로 depth추가
-  const block = response.block as Record<string, any>
-
-  const blockValue = block?.[id]?.value
-  const rawMetadata = blockValue?.value ?? blockValue
-
+  let rawMetadata = block[id]?.value as any
+  if (rawMetadata?.value) {
+    rawMetadata = rawMetadata.value
+  }
   // Check Type
   if (
     rawMetadata?.type !== "collection_view_page" &&
@@ -41,11 +40,15 @@ export const getPosts = async () => {
       const id = pageIds[i]
       const properties = (await getPageProperties(id, block, schema)) || null
       // Add fullwidth, createdtime to properties
+      let blockValue = block[id]?.value as any
+      if (blockValue?.value) {
+        blockValue = blockValue.value
+      }
       properties.createdTime = new Date(
-        block[id].value?.created_time
+        blockValue?.created_time
       ).toString()
       properties.fullWidth =
-        (block[id].value?.format as any)?.page_full_width ?? false
+        (blockValue?.format as any)?.page_full_width ?? false
 
       data.push(properties)
     }
