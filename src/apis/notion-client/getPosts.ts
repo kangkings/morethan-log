@@ -16,6 +16,7 @@ export const getPosts = async () => {
   const api = new NotionAPI()
 
   const response = await api.getPage(id)
+  console.log("collection_query:", JSON.stringify(response.collection_query, null, 2))
   id = idToUuid(id)
   const collection = (Object.values(response.collection)[0] as any)?.value?.value || (Object.values(response.collection)[0] as any)?.value
   const block = response.block
