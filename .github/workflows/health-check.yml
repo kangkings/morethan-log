@@ -13,7 +13,7 @@ jobs:
         run: |
           RESPONSE=$(curl -s --max-time 30 https://kangkings.vercel.app)
           
-          if echo "$RESPONSE" | grep -q "소프트웨어 엔지니어 강태성입니다!"; then
+          if echo "$RESPONSE" | grep -q "SpringSecurity를 나름대로 이해해보기"; then
             echo "✅ 블로그 정상"
           else
             curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
