@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Revalidate blog
         run: |
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "https://kangkings.vercel.app/api/revalidate?secret=${{ secrets.TOKEN_FOR_REVALIDATE }}")
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "https://kangking.vercel.app/api/revalidate?secret=${{ secrets.TOKEN_FOR_REVALIDATE }}")
           
           if [ "$RESPONSE" != "200" ]; then
             curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
