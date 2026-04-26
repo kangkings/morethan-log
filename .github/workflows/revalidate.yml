@@ -1,0 +1,20 @@
+name: Auto Revalidate Blog
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Revalidate blog
+        run: |
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "https://kangkings.vercel.app/api/revalidate?secret=${{ secrets.TOKEN_FOR_REVALIDATE }}")
+          
+          if [ "$RESPONSE" != "200" ]; then
+            curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+              -H 'Content-type: application/json' \
+              -d "{\"text\":\"🚨 블로그 revalidate 실패 (status: $RESPONSE)\"}"
+          fi

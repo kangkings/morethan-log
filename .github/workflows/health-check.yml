@@ -1,0 +1,23 @@
+name: Blog Health Check
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check blog posts loaded
+        run: |
+          RESPONSE=$(curl -s --max-time 30 https://kangkings.vercel.app)
+          
+          if echo "$RESPONSE" | grep -q "소프트웨어 엔지니어 강태성입니다!"; then
+            echo "✅ 블로그 정상"
+          else
+            curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+              -H 'Content-type: application/json' \
+              -d '{"text":"🚨 블로그 게시글 로드 실패 - 확인 필요\nhttps://kangkings.vercel.app"}'
+            exit 1
+          fi

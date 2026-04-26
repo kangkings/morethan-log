@@ -16,6 +16,7 @@ export const getPosts = async () => {
   const api = new NotionAPI()
 
   const response = await api.getPage(id)
+
   id = idToUuid(id)
   const collection = (Object.values(response.collection)[0] as any)?.value?.value || (Object.values(response.collection)[0] as any)?.value
   const block = response.block
@@ -38,7 +39,7 @@ export const getPosts = async () => {
     const data = []
     for (let i = 0; i < pageIds.length; i++) {
       const id = pageIds[i]
-      const properties = (await getPageProperties(id, block, schema)) || null
+      const properties = (await getPageProperties(id, block, schema, response)) || null
       // Add fullwidth, createdtime to properties
       let blockValue = block[id]?.value as any
       if (blockValue?.value) {

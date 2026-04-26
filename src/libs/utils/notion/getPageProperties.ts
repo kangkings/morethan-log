@@ -6,7 +6,8 @@ import { customMapImageUrl } from "./customMapImageUrl"
 async function getPageProperties(
   id: string,
   block: BlockMap,
-  schema: CollectionPropertySchemaMap
+  schema: CollectionPropertySchemaMap,
+  recordMap?: any
 ) {
   const api = new NotionAPI()
   let blockValue = block?.[id]?.value as any
@@ -29,7 +30,7 @@ async function getPageProperties(
             const newurl = customMapImageUrl(url, blockValue)
             properties[schema[key].name] = newurl
           } catch (error) {
-            properties[schema[key].name] = undefined
+            properties[schema[key].name] = null
           }
           break
         }
@@ -53,28 +54,33 @@ async function getPageProperties(
           }
           break
         }
-        case "person": {
-          const rawUsers = val.flat()
 
-          const users = []
-          for (let i = 0; i < rawUsers.length; i++) {
-            if (rawUsers[i][0][1]) {
-              const userId = rawUsers[i][0]
-              const res: any = await api.getUsers(userId)
-              const resValue =
-                res?.recordMapWithRoles?.notion_user?.[userId[1]]?.value
-              const user = {
-                id: resValue?.id,
-                name:
-                  resValue?.name ||
-                  `${resValue?.family_name}${resValue?.given_name}` ||
-                  undefined,
-                profile_photo: resValue?.profile_photo || null,
-              }
-              users.push(user)
-            }
-          }
-          properties[schema[key].name] = users
+        //26.04.26 author 정보 로딩실패 해결
+        //게시글에 작성자 표시 안하도록 수정
+        //인증되지 않은 사용자가 사용자 정보까지 가져오는걸 막은것으로 보임
+        case "person": {
+          // const rawUsers = val.flat()
+
+          // const users = []
+          // for (let i = 0; i < rawUsers.length; i++) {
+          //   if (rawUsers[i][0][1]) {
+          //     const userId = rawUsers[i][0][1]
+          //     const userValue = recordMap?.notion_user?.[userId]?.value
+
+          //     const user = {
+          //       id: userValue?.id ?? null,
+          //       name: userValue?.name ??
+          //         (userValue?.family_name || userValue?.given_name
+          //           ? `${userValue?.family_name ?? ''}${userValue?.given_name ?? ''}`
+          //           : null),
+          //       profile_photo: userValue?.profile_photo ?? null,
+          //     }
+          //     users.push(user)
+          //   }
+          // }
+          // properties[schema[key].name] = users
+          // break
+          properties[schema[key].name] = []
           break
         }
         default:
@@ -82,7 +88,12 @@ async function getPageProperties(
       }
     }
   }
-  return properties
+  const sanitized = JSON.parse(
+    JSON.stringify(properties, (_, value) =>
+      value === undefined ? null : value
+    )
+  )
+  return sanitized
 }
 
 export { getPageProperties as default }
